@@ -3,9 +3,6 @@ import Layout from './components/Layout';
 import Home from './pages/Home';
 import ChannelSelection from './pages/ChannelSelection';
 import TemplateSelection from './pages/TemplateSelection';
-import SmsChannel from './pages/SmsChannel';
-import WhatsappChannel from './pages/WhatsappChannel';
-import EmailChannel from './pages/EmailChannel';
 import ChannelForm from './pages/ChannelForm';
 
 const router = createBrowserRouter([
@@ -28,19 +25,7 @@ const router = createBrowserRouter([
       {
         path: 'seleccion-plantilla',
         element: <TemplateSelection />
-      },
-			{
-				path: 'sms-canal',
-				element: <SmsChannel />
-			},
-			{
-				path: 'email-canal',
-				element: <EmailChannel />
-			},
-			{
-				path: 'whatsapp-canal',
-				element: <WhatsappChannel />
-			},
+      }
     ]
   }
 ]);
