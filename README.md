@@ -1,54 +1,89 @@
-# React + TypeScript + Vite
+# Candidate Invitations
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A web application for managing candidate communications through multiple channels, including email, SMS, and WhatsApp. This application allows you to select candidates, choose communication templates, and send personalized messages through various channels.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- Candidate management and selection
+- Multiple communication channels (Email, SMS, WhatsApp)
+- Customizable message templates
+- Multi-step workflow for message creation and sending
 
-## Expanding the ESLint configuration
+## Prerequisites
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- Node.js (v18+ recommended)
+- npm (v9+ recommended) or yarn
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+## Installation
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/yourusername/candidate-invitations.git
+   cd candidate-invitations
+   ```
+
+2. Install dependencies:
+   ```bash
+   npm install
+   # or if you prefer yarn
+   yarn
+   ```
+
+## Running the Application
+
+### Development Mode
+
+To start the development server with hot-reload:
+
+```bash
+npm run dev
+# or
+yarn dev
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+This will start the application on `http://localhost:5173` by default.
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+### Building for Production
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
+To build the application for production:
+
+```bash
+npm run build
+# or
+yarn build
 ```
+
+To preview the production build locally:
+
+```bash
+npm run preview
+# or
+yarn preview
+```
+
+## Project Structure
+
+```
+candidate-invitations/
+├── public/             # Static assets
+├── src/
+│   ├── components/     # Reusable UI components
+│   ├── pages/          # Page components
+│   ├── stores/         # Valtio state management
+│   └── ...
+├── index.html          # HTML entry point
+└── ...
+```
+
+## Technologies
+
+- [React](https://react.dev/) - UI library
+- [TypeScript](https://www.typescriptlang.org/) - Type-safe JavaScript
+- [Vite](https://vitejs.dev/) - Build tool and development server
+- [Material UI](https://mui.com/) - Component library
+- [Valtio](https://valtio.pmnd.rs/) - State management
+- [React Router](https://reactrouter.com/) - Navigation and routing
+
+## License
+
+MIT
