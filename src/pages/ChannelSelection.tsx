@@ -9,7 +9,15 @@ const ChannelSelection = () => {
 
 	const goToChannelForm = () => {
 		const firstSelected = channels.find(channel => channel.checked)
-		navigate(`/seleccion-canales/${firstSelected?.id}`)
+		navigate(`/selection-canales/${firstSelected?.id}`)
+	}
+
+	const isDisabled = !channels.some(channel => channel.checked);
+
+	const isCustom = candidateStore.templateSelected === undefined ? false : candidateStore.templateSelected.id === 3
+
+	const showMessage = () => {
+		console.log(candidateStore.getMessageTemplates())
 	}
 
 	return (
@@ -25,8 +33,13 @@ const ChannelSelection = () => {
 				</FormControl>
 
 				<Box sx={{ display: 'flex', justifyContent: 'flex-end', gap: 2 }}>
-					<Button variant="contained" color="primary" onClick={() => navigate('/seleccion-plantilla')}>Atrás</Button>
-					<Button variant="contained" color="primary" onClick={goToChannelForm}>Siguiente</Button>
+					<Button variant="contained" color="primary" onClick={() => navigate('/selection-plantilla')}>Atrás</Button>
+					{isCustom ? (
+						<Button variant="contained" color="primary" onClick={goToChannelForm} disabled={isDisabled}>Siguiente</Button>
+					) : (
+						<Button variant="contained" color="primary" onClick={showMessage} disabled={isDisabled}>Enviar</Button>
+					)}
+					
 				</Box>
 			</Paper>
 		</Box>

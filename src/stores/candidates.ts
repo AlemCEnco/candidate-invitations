@@ -79,12 +79,24 @@ const initialTemplates: IMessage[] = [
 		name: 'Invitación',
 		templates: [
 			{
-				types: [1, 2],
-				template: 'Hola, te invitamos a nuestro evento'
+				types: [1, 3],
+				template: 'Mensaje: Hola [Nombre], te invitamos a participar en el proceso de [nombre del proceso/actividad] que se llevará a cabo el [fecha] a las [hora]. Por favor, confirma tu asistencia respondiendo a este mensaje. ¡Te esperamos!'
 			}, 
 			{
-				types: [3],
-				template: 'Hola, {{name}} te invitamos a nuestro evento'
+				types: [2],
+				template: `Asunto: Invitación al proceso de [nombre del proceso]
+							Mensaje:  
+							Estimado/a [Nombre],  
+							Esperamos que te encuentres bien.  
+							A través de este medio, queremos invitarte a participar en el proceso de [nombre del proceso],  
+							que se llevará a cabo el [fecha] a las [hora].  
+							El lugar del encuentro será [dirección/sala virtual].  
+							Tu participación es muy importante para nosotros. Agradeceríamos que confirmes tu asistencia respondiendo a este correo.  
+							Quedamos atentos a cualquier consulta que puedas tener.  
+							Cordialmente,  
+							[Nombre del remitente]  
+							[Puesto]  
+							[Empresa/Organización]`
 			}
 		]
 	},
@@ -93,12 +105,22 @@ const initialTemplates: IMessage[] = [
 		name: 'Recordatorio',
 		templates: [
 			{
-				types: [1, 2],
-				template: 'Hola, recuerda nuestro evento'
+				types: [1, 3],
+				template: 'Mensaje: Hola [Nombre], te recordamos que el proceso de [nombre del proceso/actividad] al que confirmaste tu asistencia se realizará el [fecha] a las [hora]. ¡Te esperamos puntual!'
 			},
 			{
-				types: [3],
-				template: 'Hola, {{name}} recuerda nuestro evento'
+				types: [2],
+				template: `Asunto: Recordatorio del proceso de [nombre del proceso] 
+							Mensaje: 
+							Estimado/a [Nombre], 
+							Queremos recordarte que el proceso de [nombre del proceso], al que amablemente confirmaste tu asistencia, 
+							se realizará el [fecha] a las [hora]. El evento tendrá lugar en [dirección/sala virtual]. 
+							Si tienes alguna duda o necesitas asistencia previa, no dudes en contactarnos. 
+							Te esperamos puntual. 
+							Saludos cordiales,  
+							[Nombre del remitente]  
+							[Puesto]  
+							[Empresa/Organización]`
 			}
 		]
 	},
@@ -107,12 +129,13 @@ const initialTemplates: IMessage[] = [
 		name: 'Personalizado',
 		templates: [
 			{
-				types: [1, 2],
-				template: 'Hola, {{name}} te invitamos a nuestro evento'
+				types: [1, 3],
+				template: 'Mensaje:'
 			},
 			{
-				types: [3],
-				template: 'Hola, {{name}} te invitamos a nuestro evento'
+				types: [2],
+				template: `Asunto:
+							Mensaje: `
 			}
 		]
 	}

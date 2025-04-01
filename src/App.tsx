@@ -15,15 +15,15 @@ const router = createBrowserRouter([
         element: <Home />
       },
 			{
-				path: 'seleccion-canales',
+				path: 'selection-canales',
 				element: <ChannelSelection />,
 			},
 			{
-				path: '/seleccion-canales/:id',
+				path: '/selection-canales/:id',
 				element: <ChannelForm />
 			},
       {
-        path: 'seleccion-plantilla',
+        path: 'selection-plantilla',
         element: <TemplateSelection />
       }
     ]

@@ -32,7 +32,7 @@ const TemplateSelection = () => {
         
         <Box sx={{ display: 'flex', justifyContent: 'flex-end', gap: 2 }}>
           <Button variant="contained" color="primary" onClick={() => navigate('/')}>Cancelar</Button>
-					<Button variant="contained" color="primary" onClick={() => navigate('/seleccion-canales')}>Siguiente</Button>
+					<Button variant="contained" color="primary" onClick={() => navigate('/selection-canales')}>Siguiente</Button>
         </Box>
       </Paper>
     </Box>

@@ -9,6 +9,8 @@ import { useNavigate } from 'react-router-dom';
 const Home = () => {
 	const { candidates } = useSnapshot(candidateStore);
 	const navigate = useNavigate();
+	const isDisabled = !candidates.some(candidate => candidate.checked);
+
 	useEffect(() => {
 		candidateStore.fetchCandidates()
 	}, []);
@@ -20,7 +22,7 @@ const Home = () => {
 		</Box>
 	}
 
-  return (
+	return (
 		<Box>
 			<Typography variant="h4">Candidatos</Typography>
 			<List dense sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
@@ -34,7 +36,7 @@ const Home = () => {
 									edge="end"
 									onChange={() => candidateStore.toggleCandidate(candidate.id)}
 									checked={candidate.checked}
-									inputProps={{ 'aria-labelledby': labelId }}
+									slotProps={{ input: { 'aria-labelledby': labelId } }}
 								/>
 							}
 							disablePadding
@@ -52,9 +54,9 @@ const Home = () => {
 					);
 				})}
 			</List>
-			<Button variant="contained" color="primary" onClick={() => navigate('/seleccion-plantilla')}>Seleccionar plantilla</Button>
+			<Button variant="contained" color="primary" onClick={() => navigate('/selection-plantilla')} disabled={isDisabled}>Seleccionar plantilla</Button>
 		</Box>
-  );
+	);
 };
 
 export default Home; 
