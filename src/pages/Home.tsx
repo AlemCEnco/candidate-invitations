@@ -12,7 +12,9 @@ const Home = () => {
 	const isDisabled = !candidates.some(candidate => candidate.checked);
 
 	useEffect(() => {
-		candidateStore.fetchCandidates()
+		if(candidateStore.candidateStatus === CandidateStatus.IDLE) {
+			candidateStore.fetchCandidates()
+		}
 	}, []);
 
 

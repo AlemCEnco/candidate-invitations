@@ -25,6 +25,7 @@ export enum TypeChannel {
 }
 
 export enum CandidateStatus {
+	IDLE = 'idle',
 	LOADING = 'loading',
 	LOADED = 'loaded',
 	ERROR = 'error',
@@ -154,7 +155,7 @@ const initialTemplates: IMessage[] = [
 
 class Candidate {
 	candidates: ICandidates[] = [];
-	candidateStatus: CandidateStatus = CandidateStatus.LOADING;
+	candidateStatus: CandidateStatus = CandidateStatus.IDLE;
 	channels: IChannel[] = initialChannels;
 	templates: IMessage[] = initialTemplates;
 	templateSelected: IMessage = initialTemplates[0];
@@ -198,8 +199,19 @@ class Candidate {
 
 	getMessageTemplates()	{
 		const checkedChannels = this.channels.filter((channel) => channel.checked)
-		const checkedTemplates = this.templateSelected.templates.filter((template) => template.types.some((type) => checkedChannels.some((channel) => channel.id === type)))
-		return checkedTemplates
+		const checkedCandidates = this.candidates.filter((candidate) => candidate.checked)
+		const isCustomTemplate = this.templateSelected.id === 3
+
+		return checkedCandidates.flatMap((candidate) => 
+			checkedChannels.flatMap((channel) => 
+				this.templateSelected.templates
+					.filter((template) => template.types.some((type) => type === channel.id))
+					.map((template) => ({
+						...template,
+						template: this.replaceTemplateVariables(template.template, candidate, channel, isCustomTemplate)
+					}))
+			)
+		)
 	}
 
 	toggleContentTemplate(template: ITemplate, type: TypeChannel) {
@@ -237,92 +249,6 @@ class Candidate {
 		console.log('result',result)
 		return result;
 	};
-  
-  // Estructura para enviar al backend
-//    prepareDataForBackend = (candidates: ICandidates[], templates: IMessage[], channels: IChannel[], templateSelectedId: number) => {
-	prepareDataForBackend = () => {
-		// Filtrar los candidatos seleccionados
-		const data = this.candidates.filter(candidate => candidate.checked);
-	  
-		// Generar el array para enviar al backend
-		const dataToSend = data.map((candidate) => {
-		  const selectedChannels = this.channels.filter(channel => channel.checked);  // Filtrar los canales seleccionados
-	  
-		  const messages = selectedChannels.flatMap((channel) => {
-			const customTemplate = this.templates.find(template => template.id === candidateStore.templateSelected.id);
-	  
-			// Verificar si se está utilizando una plantilla personalizada (id === 3)
-			const isCustomTemplate = candidateStore.templateSelected.id === 3;
-	  
-			return customTemplate ? customTemplate.templates.map((template) => {
-			  // Reemplazar las variables en el template según el canal y el candidato
-			  const message = this.replaceTemplateVariables(template.template, candidate, channel, isCustomTemplate);
-	  
-			  // Si es un canal de email, agregar el subject
-			//   const subject = channel.type === TypeChannel.email && isCustomTemplate
-			// 	? this.replaceTemplateVariables(customTemplate.templates[1].template, candidate, channel, isCustomTemplate)
-			// 	: '';
-	  
-			  // Retornar los mensajes con la estructura adecuada
-			//   return {
-			// 	channel: channel.name,
-			// 	message,
-			// 	subject
-			//   };
-			}) : [];
-		  });
-	  
-		  return {
-			candidateId: candidate.id,
-			candidateName: candidate.name,
-			messages
-		  };
-		});
-	  
-		return dataToSend;
-	  };
-	  
-
-   showMessage = () => {
-	// Obtenemos el template seleccionado y los canales seleccionados
-	const selectedTemplate = candidateStore.templateSelected;
-	const selectedChannels = this.channels.filter(channel => channel.checked); // Canales seleccionados
-	
-	const candidateData = candidateStore.candidates; // Los datos de los candidatos
-	
-	// Generar el mensaje con los datos reemplazados
-	const generatedMessages = candidateData.map(candidate => {
-	  const messages = selectedChannels.flatMap(channel => {
-		const customTemplate = initialTemplates.find(template => template.id === selectedTemplate.id);
-		
-		const isCustomTemplate = selectedTemplate.id === 3;
-		return customTemplate ? customTemplate.templates.map(template => {
-		  // Reemplazamos las variables en la plantilla
-		  const message = this.replaceTemplateVariables(template.template, candidate, channel, isCustomTemplate);
-  
-		  // Si es un canal de email, también agregar el subject
-		  const subject = channel.type === TypeChannel.email && isCustomTemplate
-			? this.replaceTemplateVariables(customTemplate.templates[1].template, candidate, channel, isCustomTemplate)
-			: '';
-  
-		  return {
-			channel: channel.name,
-			message,
-			subject
-		  };
-		}) : [];
-	  });
-  
-	  return {
-		candidateId: candidate.id,
-		candidateName: candidate.name,
-		messages
-	  };
-	});
-  
-	// Mostrar los mensajes generados
-	console.log(generatedMessages);
-  };
 }
 
 export const candidateStore = proxy(new Candidate());

@@ -54,7 +54,7 @@ const ChannelForm = () => {
 	}
 
 	const showMessage = () => {
-		console.log(candidateStore.prepareDataForBackend())
+		console.log(candidateStore.getMessageTemplates())
 	}
 
 	useEffect(() => {
